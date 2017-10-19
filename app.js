@@ -4,9 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require ('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var auth = require('./routes/auth');
+
+mongoose.connect('mongodb://127.0.0.1:27017/rhmap-nocers',{},(err) =>{
+ if (err){
+ 	console.error('Error no connection with mongoose');
+	}
+});
 
 var app = express();
 
@@ -24,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/registration', auth);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
