@@ -10,8 +10,10 @@ router.get('/', function(req, res, next) {
 
 /* Post and create a user */
 router.post('/', (req, res, next) => {
+	console.log(req)
   users.create({
     username: req.body.username,
+    email:    req.body.email,
     password: req.body.password,
     admin: false
   })
